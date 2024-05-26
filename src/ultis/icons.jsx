@@ -7,6 +7,9 @@ import {
   MdArrowForward,
   MdSearch,
   MdDeleteOutline,
+  MdFavorite,
+  MdFavoriteBorder,
+  MdMoreHoriz,
 } from "react-icons/md";
 
 const icons = {
@@ -18,6 +21,9 @@ const icons = {
   MdArrowForward,
   MdSearch,
   MdDeleteOutline,
+  MdFavorite,
+  MdFavoriteBorder,
+  MdMoreHoriz,
 };
 
 export default icons;

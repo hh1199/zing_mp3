@@ -12,3 +12,12 @@ export const getHome = () =>
       reject(error);
     }
   });
+
+// export const getHome = async () => {
+//   try {
+//     const response = await axios.get("/home", {});
+//     return { data: response.data, error: null };
+//   } catch (error) {
+//     return { data: null, error: error };
+//   }
+// };

@@ -1,4 +1,3 @@
-import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 // import viteLogo from "/vite.svg";
 import "./App.css";
@@ -18,21 +17,6 @@ export default function App() {
       <div className="">
         <RouterProvider router={router} />
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        // transition: Bounce,
-      />
-      {/* Same as */}
-      <ToastContainer />;
     </>
   );
 }

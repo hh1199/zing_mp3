@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getArrSlider } from "../ultis/fn";
+import * as actions from "../store/actions";
 
 const Slider = () => {
   const { banner } = useSelector((state) => state.app);
-
+  const dispatch = useDispatch();
   //   useEffect(() => {
   //     const sliderEls = document.getElementsByClassName("slider-item");
   //     let min = 0;
@@ -36,12 +37,20 @@ const Slider = () => {
   //     };
   //   }, []);
 
+  const handleClickBanner = (item) => {
+    console.log(item);
+    if (item?.type === 1) {
+      dispatch(actions.setCurSongId(item.encodeId));
+    }
+  };
+
   return (
     <div className="flex gap-4 w-full overflow-hidden px-[59px] pt-8 ">
       {banner?.map((item) => (
         <img
           key={item.encodeId}
           src={item.banner}
+          onClick={() => handleClickBanner(item)}
           className="slider-item flex-1 object-contain w-1/3 rounded-lg"
         />
       ))}
