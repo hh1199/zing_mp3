@@ -10,6 +10,12 @@ import {
   MdFavorite,
   MdFavoriteBorder,
   MdMoreHoriz,
+  MdRepeat,
+  MdSkipNext,
+  MdSkipPrevious,
+  MdShuffle,
+  MdPlayArrow,
+  MdPause,
 } from "react-icons/md";
 
 const icons = {
@@ -24,6 +30,12 @@ const icons = {
   MdFavorite,
   MdFavoriteBorder,
   MdMoreHoriz,
+  MdRepeat,
+  MdSkipNext,
+  MdSkipPrevious,
+  MdShuffle,
+  MdPlayArrow,
+  MdPause,
 };
 
 export default icons;
