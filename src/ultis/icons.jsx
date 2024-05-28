@@ -16,6 +16,7 @@ import {
   MdShuffle,
   MdPlayArrow,
   MdPause,
+  MdAudiotrack,
 } from "react-icons/md";
 
 const icons = {
@@ -36,6 +37,7 @@ const icons = {
   MdShuffle,
   MdPlayArrow,
   MdPause,
+  MdAudiotrack,
 };
 
 export default icons;

@@ -50,13 +50,13 @@ const Album = () => {
           </span>
         </div>
       </div>
-      <div className="flex-auto border border-blue-500">
+      <div className="flex-auto border border-blue-500 ">
         <span className="text-sm">
           <span className="text-gray-600">Lời tựa </span>
           <span>{playlistData?.sortDescription}</span>
         </span>
         <Lists
-          songs={playlistData?.song?.items}
+          songs={playlistData?.song?.items || []}
           totalDuration={playlistData?.song?.totalDuration}
         />
       </div>
