@@ -17,6 +17,7 @@ import {
   MdPlayArrow,
   MdPause,
   MdAudiotrack,
+  MdAdjust,
 } from "react-icons/md";
 
 const icons = {
@@ -38,6 +39,7 @@ const icons = {
   MdPlayArrow,
   MdPause,
   MdAudiotrack,
+  MdAdjust,
 };
 
 export default icons;

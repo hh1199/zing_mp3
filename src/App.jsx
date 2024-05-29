@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import * as actions from "./store/actions";
 import router from "./routers";
 import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,21 @@ export default function App() {
       <div className="">
         <RouterProvider router={router} />
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        // transition: Bounce,
+      />
+      {/* Same as */}
+      <ToastContainer />;
     </>
   );
 }
