@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import * as apis from "../../apis";
-import { Lists } from "../../components";
+import { Lists, AudioLoading } from "../../components";
 import Scrollbars from "react-custom-scrollbars-2";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../store/actions";
+import icons from "../../ultis/icons";
+
+const { MdPlayArrow } = icons;
 
 const Album = () => {
   const { title, pid } = useParams();
   //   console.log("title, pid", { title, pid });
+  const { curSongId, isPlaying, songs } = useSelector((state) => state.music);
   const [playlistData, setPlaylistData] = useState({});
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchDetailPlaylist = async () => {
       const response = await apis.apiGetDetailPlaylist(pid);
       //   console.log("res", response);
       if (response?.data.err === 0) {
         setPlaylistData(response.data?.data);
+        dispatch(actions.setPlaylist(response?.data?.data?.song?.items));
       }
     };
     fetchDetailPlaylist();
@@ -23,11 +32,26 @@ const Album = () => {
   return (
     <div className="flex gap-8 w-full h-full px-[59px]">
       <div className="flex-none w-1/4 border border-red-500 flex flex-col items-center gap-2">
-        <img
-          src={playlistData?.thumbnailM}
-          alt="thumbnail"
-          className="w-full  object-contain rounded-md shadow-md"
-        />
+        <div className="w-full relative overflow-hidden">
+          <img
+            src={playlistData?.thumbnailM}
+            alt="thumbnail"
+            className={`w-full object-contain ${
+              isPlaying
+                ? "rounded-full animate-rotate-center"
+                : "rounded-md animate-rotate-center-pause"
+            } shadow-md `}
+          />
+          <div
+            className={`absolute top-0 left-0 bottom-0 right-0 hover:bg-overlay-30 text-white flex items-center justify-center ${
+              isPlaying && "rounded-full"
+            }`}
+          >
+            <span className="p-3 border border-white rounded-full">
+              {isPlaying ? <AudioLoading /> : <MdPlayArrow size={30} />}
+            </span>
+          </div>
+        </div>
         <div className="flex flex-col items-center gap-1">
           <h3 className="text-[20px] font-bold text-gray-800 text-center">
             {playlistData?.title}
@@ -57,10 +81,7 @@ const Album = () => {
             <span className="text-gray-600">Lời tựa </span>
             <span>{playlistData?.sortDescription}</span>
           </span>
-          <Lists
-            songs={playlistData?.song?.items || []}
-            totalDuration={playlistData?.song?.totalDuration}
-          />
+          <Lists totalDuration={playlistData?.song?.totalDuration} />
         </div>
       </Scrollbars>
     </div>

@@ -18,6 +18,7 @@ import {
   MdPause,
   MdAudiotrack,
   MdAdjust,
+  MdOutlineRepeatOne,
 } from "react-icons/md";
 
 const icons = {
@@ -40,6 +41,7 @@ const icons = {
   MdPause,
   MdAudiotrack,
   MdAdjust,
+  MdOutlineRepeatOne,
 };
 
 export default icons;

@@ -18,6 +18,7 @@ export default function App() {
       <div className="">
         <RouterProvider router={router} />
       </div>
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -29,10 +30,7 @@ export default function App() {
         draggable
         pauseOnHover
         theme="light"
-        // transition: Bounce,
       />
-      {/* Same as */}
-      <ToastContainer />;
     </>
   );
 }

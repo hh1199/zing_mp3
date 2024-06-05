@@ -27,32 +27,33 @@ export const apiGetSong = (sid) =>
 //   }
 // };
 
-export const apiGetDetailSong = (sid) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios({
-        url: "/infosong",
-        method: "get",
-        params: { id: sid },
-      });
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+// export const apiGetDetailSong = (sid) =>
+//   new Promise(async (resolve, reject) => {
+//     try {
+//       const response = await axios({
+//         url: "/infosong",
+//         method: "get",
+//         params: { id: sid },
+//       });
+//       resolve(response);
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
 
-// export const apiGetDetailSong = async (sid) => {
-//   try {
-//     const response = await axios({
-//       url: "/infosong",
-//       method: "get",
-//       params: { id: sid },
-//     });
-//     console.log("apiGetDetailSong: ", response);
-//   } catch (error) {
-//     console.error("apiGetDetailSong: ", error);
-//   }
-// };
+export const apiGetDetailSong = async (sid) => {
+  try {
+    const response = await axios({
+      url: "/infosong",
+      method: "get",
+      params: { id: sid },
+    });
+    return response;
+    // console.log("apiGetDetailSong: ", response);
+  } catch (error) {
+    console.error("apiGetDetailSong: ", error);
+  }
+};
 
 export const apiGetDetailPlaylist = (pid) =>
   new Promise(async (resolve, reject) => {
