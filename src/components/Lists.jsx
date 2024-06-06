@@ -31,7 +31,7 @@ const Lists = ({ totalDuration }) => {
 };
 
 Lists.propTypes = {
-  songs: PropTypes.array.isRequired,
+  // songs: PropTypes.array.isRequired,
   totalDuration: PropTypes.number,
 };
 

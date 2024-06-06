@@ -6,12 +6,13 @@ import * as actions from "./store/actions";
 import router from "./routers";
 import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(actions.getHome());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
