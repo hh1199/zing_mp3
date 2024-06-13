@@ -4,6 +4,7 @@ import * as apis from "../apis";
 import * as actions from "../store/actions";
 import icons from "../ultis/icons";
 import moment from "moment";
+import { LoadingSong } from "./";
 
 import { toast } from "react-toastify";
 
@@ -18,11 +19,15 @@ const {
   MdPlayArrow,
   MdPause,
   MdOutlineRepeatOne,
+  MdList,
+  MdOutlineVolumeUp,
+  MdOutlineVolumeOff,
+  MdOutlineVolumeDown,
 } = icons;
 
 var intervalId;
 
-const Player = () => {
+const Player = ({ setIsShowRightSidebar }) => {
   // const audioEl = useRef(new Audio());
   // console.log("audioEl", audioEl);
 
@@ -34,16 +39,20 @@ const Player = () => {
   const [curSeconds, setCurSeconds] = useState(0);
   const [isShuffle, setIsShuffle] = useState(false);
   const [repeatMode, setRepeatMode] = useState(0);
+  const [isLoadedSource, setIsLoadedSource] = useState(false);
+  const [volume, setVolume] = useState(100);
   const dispatch = useDispatch();
   const thumbRef = useRef();
   const trackRef = useRef();
 
   useEffect(() => {
     const fetchDetailSong = async () => {
+      setIsLoadedSource(false);
       const [res1, res2] = await Promise.all([
         apis.apiGetDetailSong(curSongId),
         apis.apiGetSong(curSongId),
       ]);
+      setIsLoadedSource(true);
       if (res1.data.err === 0) {
         setSongInfo(res1.data.data);
       }
@@ -97,6 +106,10 @@ const Player = () => {
       audio.removeEventListener("ended", handleEnded);
     };
   }, [audio, isShuffle, repeatMode]);
+
+  useEffect(() => {
+    audio.volume = volume / 100;
+  }, [volume]);
 
   // const play = async () => {
   //   await audio.play();
@@ -181,7 +194,7 @@ const Player = () => {
           </span>
         </div>
       </div>
-      <div className="w-[40%] flex-auto border flex items-center justify-center flex-col gap-2 border-red-500 py-2">
+      <div className="w-[40%] flex-auto  flex items-center justify-center flex-col gap-2 py-2">
         <div className="flex gap-8 justify-center items-center">
           <span
             className={`cursor-pointer ${isShuffle && "text-purple-600"}`}
@@ -200,7 +213,13 @@ const Player = () => {
             className="p-1 border boder-gray-700 hover:text-main-500 rounded-full cursor-pointer"
             onClick={handleTogglePlay}
           >
-            {isPlaying ? <MdPause size={30} /> : <MdPlayArrow size={30} />}
+            {!isLoadedSource ? (
+              <LoadingSong />
+            ) : isPlaying ? (
+              <MdPause size={30} />
+            ) : (
+              <MdPlayArrow size={30} />
+            )}
           </span>
           <span
             className={`${!songs ? "text-gray-400" : "cursor-pointer"}`}
@@ -235,7 +254,35 @@ const Player = () => {
           <span>{moment.utc(songInfo?.duration * 1000).format("mm:ss")}</span>
         </div>
       </div>
-      <div className="w-[30%] flex-auto">Volume</div>
+      <div className="w-[30%] flex-auto flex items-center justify-end gap-4">
+        <div className="flex gap-2 items-center">
+          <span onClick={() => setVolume((prev) => (+prev === 0 ? 70 : 0))}>
+            {+volume >= 50 ? (
+              <MdOutlineVolumeUp />
+            ) : +volume === 0 ? (
+              <MdOutlineVolumeOff />
+            ) : (
+              <MdOutlineVolumeDown />
+            )}
+          </span>
+          <input
+            type="range"
+            step={1}
+            min={0}
+            max={100}
+            value={volume}
+            onChange={(e) => setVolume(e.target.value)}
+          />
+        </div>
+        <span
+          onClick={() => {
+            setIsShowRightSidebar((prev) => !prev);
+          }}
+          className="p-1 rounded-sm cursor-pointer bg-main-500 opacity-90 hover:opacity-100"
+        >
+          <MdList size={20} />
+        </span>
+      </div>
     </div>
   );
 };

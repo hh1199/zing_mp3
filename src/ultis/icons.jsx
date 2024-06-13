@@ -19,6 +19,10 @@ import {
   MdAudiotrack,
   MdAdjust,
   MdOutlineRepeatOne,
+  MdList,
+  MdOutlineVolumeOff,
+  MdOutlineVolumeUp,
+  MdOutlineVolumeDown,
 } from "react-icons/md";
 
 const icons = {
@@ -42,6 +46,10 @@ const icons = {
   MdAudiotrack,
   MdAdjust,
   MdOutlineRepeatOne,
+  MdList,
+  MdOutlineVolumeOff,
+  MdOutlineVolumeUp,
+  MdOutlineVolumeDown,
 };
 
 export default icons;

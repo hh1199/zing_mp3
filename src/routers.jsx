@@ -1,5 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Home, Login, Public, Personal, Album } from "./containers/public";
+import {
+  Home,
+  Login,
+  Public,
+  Personal,
+  Album,
+  WeekRank,
+} from "./containers/public";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "playlist/:title/:pid",
         element: <Album />,
+      },
+      {
+        path: "zing-chart-tuan/:title/:pid",
+        element: <WeekRank />,
       },
     ],
   },
