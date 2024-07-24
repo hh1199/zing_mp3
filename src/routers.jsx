@@ -6,6 +6,7 @@ import {
   Personal,
   Album,
   WeekRank,
+  ZingChart,
 } from "./containers/public";
 
 const router = createBrowserRouter([
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
       {
         path: "zing-chart-tuan/:title/:pid",
         element: <WeekRank />,
+      },
+      {
+        path: "zing-chart-tuan/:title/:pid",
+        element: <WeekRank />,
+      },
+      {
+        path: "zing-chart",
+        element: <ZingChart />,
       },
     ],
   },

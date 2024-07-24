@@ -12,3 +12,5 @@ export { default as LoadingSong } from "./LoadingSong";
 export { default as Loading } from "./Loading";
 export { default as SongItem } from "./SongItem";
 export { default as NewRelease } from "./NewRelease";
+export { default as SectionItem } from "./SectionItem";
+export { default as ChartSection } from "./ChartSection";
