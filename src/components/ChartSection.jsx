@@ -61,7 +61,9 @@ const ChartSection = () => {
           // console.log(+tooltip.body[0]?.lines[0]?.replace(",", ""));
           const rs = counters.find((i) =>
             i.data.some(
-              (n) => n === +tooltip.body[0]?.lines[0]?.replace(",", "")
+              (n) =>
+                n ===
+                parseInt(tooltip.body[0]?.lines[0]?.replace(".", "") ?? "0")
             )
           );
           setSelected(rs.encodeId);

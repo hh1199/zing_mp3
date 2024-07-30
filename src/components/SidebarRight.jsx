@@ -10,18 +10,24 @@ const { MdDeleteOutline } = icons;
 const SidebarRight = () => {
   const [isRecent, setIsRecent] = useState(false);
   const [playlist, setPlaylist] = useState();
-  const { curSongData, curAlbumId, isPlaying } = useSelector(
-    (state) => state.music
-  );
+  const { curSongData, curAlbumId, isPlaying, recentSongs, curSongId } =
+    useSelector((state) => state.music);
+  const fetchDetailPlaylist = async () => {
+    const response = await apiGetDetailPlaylist(curAlbumId);
+    if (response.data?.err === 0) setPlaylist(response.data.data?.song?.items);
+  };
 
   useEffect(() => {
-    const fetchDetailPlaylist = async () => {
-      const response = await apiGetDetailPlaylist(curAlbumId);
-      if (response.data?.err === 0)
-        setPlaylist(response.data.data?.song?.items);
-    };
+    curAlbumId && fetchDetailPlaylist();
+  }, []);
+
+  useEffect(() => {
     if (curAlbumId && isPlaying) fetchDetailPlaylist();
   }, [curAlbumId, isPlaying]);
+
+  useEffect(() => {
+    isPlaying && setIsRecent(false);
+  }, [isPlaying, curSongId]);
 
   return (
     <div className="flex flex-col text-xs w-full h-full">
@@ -48,43 +54,65 @@ const SidebarRight = () => {
           <MdDeleteOutline size={14} />
         </span>
       </div>
-      <div className="w-full flex-col flex-auto flex px-2 ">
-        <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
-          <SongItem
-            thumbnail={curSongData?.thumbnail}
-            title={curSongData?.title}
-            artists={curSongData?.artistsNames}
-            sid={curSongData?.encodeId}
-            sm
-            style="bg-main-500 text-white"
-          />
-          <div className="flex flex-col text-black pt-[15px] px-2 pb-[5px]">
-            <span className="text-sm font-bold">Tiếp theo</span>
-            <span className="opacity-70 text-xs flex gap-1">
-              <span>Từ playlist </span>
-              <span className="font-semibold text-main-500">
-                {curSongData?.album?.title?.length > 30
-                  ? `${curSongData?.album?.title?.slice(0, 30)}...`
-                  : curSongData?.album?.title}
+      {isRecent ? (
+        <div className="w-full flex-col flex-auto flex px-2">
+          <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
+            {recentSongs && (
+              <div className="flex flex-col">
+                {recentSongs?.map((item) => (
+                  <SongItem
+                    thumbnail={item?.thumbnail}
+                    title={item?.title}
+                    artists={item?.artists}
+                    sid={item?.sid}
+                    sm
+                    key={item?.encodeId}
+                  />
+                ))}
+              </div>
+            )}
+          </Scrollbars>
+        </div>
+      ) : (
+        <div className="w-full flex-col flex-auto flex px-2 ">
+          <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
+            <SongItem
+              thumbnail={curSongData?.thumbnail}
+              title={curSongData?.title}
+              artists={curSongData?.artistsNames}
+              sid={curSongData?.encodeId}
+              sm
+              style="bg-main-500 text-white"
+            />
+            <div className="flex flex-col text-black pt-[15px] px-2 pb-[5px]">
+              <span className="text-sm font-bold">Tiếp theo</span>
+              <span className="opacity-70 text-xs flex gap-1">
+                <span>Từ playlist </span>
+                <span className="font-semibold text-main-500">
+                  {curSongData?.album?.title?.length > 30
+                    ? `${curSongData?.album?.title?.slice(0, 30)}...`
+                    : curSongData?.album?.title}
+                </span>
               </span>
-            </span>
-          </div>
-          {playlist && (
-            <div className="flex flex-col">
-              {playlist?.map((item) => (
-                <SongItem
-                  thumbnail={item?.thumbnail}
-                  title={item?.title}
-                  artists={item?.artistsNames}
-                  sid={item?.encodeId}
-                  sm
-                  key={item?.encodeId}
-                />
-              ))}
             </div>
-          )}
-        </Scrollbars>
-      </div>
+            {playlist && (
+              <div className="flex flex-col">
+                {playlist?.map((item) => (
+                  <SongItem
+                    thumbnail={item?.thumbnail}
+                    title={item?.title}
+                    artists={item?.artistsNames}
+                    sid={item?.encodeId}
+                    sm
+                    key={item?.encodeId}
+                  />
+                ))}
+              </div>
+            )}
+          </Scrollbars>
+        </div>
+      )}
+      <div className="w-full h-[90px]"></div>
     </div>
   );
 };
